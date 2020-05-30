@@ -7,7 +7,7 @@ import java.util.Collections;
  * 
  */
 public class Reserve {
-	private ArrayList<Card> deck;
+	private final ArrayList<Card> deck;
 	private int redTokens, blueTokens;
 
 	public Reserve(){
@@ -56,8 +56,30 @@ public class Reserve {
 
 	/**
 	 * @return Card extracted from the deck.
+	 * @throws IllegalStateException if deck is emptied
 	 */
 	public Card draw(){
-		return deck.remove();
+		try{
+			Card card = deck.remove(deck.size() -1);
+		catch(Exception e){
+			throw new IllegalStateException();
+		}
+		return card;
 	}
+
+	/**
+	 * @param n number of cards to draw
+	 * @return ArrayList<Card> of the n cards extracted from the deck.
+	 * @throws IllegalStateException if deck is emptied
+	 */
+	public ArrayList<Card> draw(int n){
+		ArrayList<Card> cards;
+		try{
+			for(int i = 0; i < n; i++)
+				cards.add(deck.remove());
+		catch(Exception e){
+			throw new IllegalStateException();
+		}
+		return cards;
+	}	
 }
