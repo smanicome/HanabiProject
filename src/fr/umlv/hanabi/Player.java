@@ -29,6 +29,10 @@ public class Player {
         return cards.remove(i);
     }
 
+    public void addCard(Card c){
+        cards.add(c);
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
