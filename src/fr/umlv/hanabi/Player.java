@@ -1,6 +1,7 @@
 package fr.umlv.hanabi;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -58,5 +59,25 @@ public class Player {
     @Override
     public int hashCode() {
         return Objects.hash(cards);
+    }
+
+    public List<Integer> getIndexOfCardsByValue(int value) {
+        ArrayList<Integer> indexes = new ArrayList<>();
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards.get(i).getValue() == value)
+                indexes.add(i);
+        }
+
+        return indexes;
+    }
+
+    public List<Integer> getIndexOfCardsByCardColor(CardColor cardColor) {
+        ArrayList<Integer> indexes = new ArrayList<>();
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards.get(i).getColor().equals(cardColor))
+                indexes.add(i);
+        }
+
+        return indexes;
     }
 }

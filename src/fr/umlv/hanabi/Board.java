@@ -28,7 +28,7 @@ public class Board {
      */
     public boolean putCard(Card card, CardColor cardColor) {
         if (card == null || cardColor == null) {
-            throw new IllegalArgumentException("Either arguments must not be null");
+            throw new IllegalArgumentException("Arguments must not be null");
         }
 
         // the player cannot see his own cards, therefore cannot know for sure their colors
@@ -46,7 +46,7 @@ public class Board {
             }
         } else {
             Card last = fwk.get(fwk.size() - 1);
-            if (card.getValue() <= last.getValue()) {
+            if (card.getValue() != (last.getValue() + 1)) {
                 return false;
             } else {
                 fwk.add(card);
@@ -76,5 +76,21 @@ public class Board {
             if (fwk.size() < 5) return false;
 
         return true;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < 5; i++) {
+            for (List<Card> fwk : fireworks.values()) {
+                if (i < fwk.size()) {
+                    builder.append(fwk.get(i) + " ");
+                } else {
+                    builder.append("  ");
+                }
+            }
+            builder.append('\n');
+        }
+        return builder.toString();
     }
 }

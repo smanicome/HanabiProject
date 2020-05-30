@@ -76,5 +76,17 @@ public class Reserve {
 		for(int i = 0; i < n; i++)
 				cards.add(draw());
 		return cards;
-	}	
+	}
+
+	public int getBlueTokens() {
+		return blueTokens;
+	}
+
+	public int getRedTokens() {
+		return redTokens;
+	}
+
+	public int getRemainingCards() {
+		return deck.size();
+	}
 }
