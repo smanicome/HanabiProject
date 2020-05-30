@@ -40,14 +40,18 @@ public class Reserve {
 	 * @return number of blue tokens in reserve.
 	 */
 	public int addBlue(){
-		return blueTokens += 1;
+		if(blueTokens < 8)
+			blueTokens += 1;
+		return blueTokens;
 	}
 
 	/**
 	 * @return number of blue tokens in reserve.
 	 */
 	public int subBlue(){
-		return blueTokens -= 1;
+		if(blueTokens > 0)
+			blueTokens -= 1;
+		return blueTokens;
 	}
 
 	/**

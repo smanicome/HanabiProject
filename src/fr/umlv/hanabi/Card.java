@@ -10,6 +10,8 @@ public class Card {
 	public Card(int val, CardColor color){
 		this.value = val;
 		this.color = color;
+		if(val < 1 || val > 5)
+			throw new IllegalArgumentException();
 	}
 
 	int getValue(){
