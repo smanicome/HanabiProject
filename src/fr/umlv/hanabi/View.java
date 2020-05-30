@@ -79,4 +79,16 @@ public class View {
     public static void displayText(String text) {
         System.out.println(text);
     }
+
+    public static void displayDiscarded(Game g) {
+        Card c = g.getDiscarded();
+        if (c == null) {
+            System.out.println("No discarded card");
+        } else {
+            System.out.println(
+                "Last discarded card : "
+                + c.toString()
+            );
+        }
+    }
 }
