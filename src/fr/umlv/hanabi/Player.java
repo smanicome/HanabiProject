@@ -61,6 +61,10 @@ public class Player {
         return Objects.hash(cards);
     }
 
+    public int getHandSize() {
+        return cards.size();
+    }
+
     public List<Integer> getIndexOfCardsByValue(int value) {
         ArrayList<Integer> indexes = new ArrayList<>();
         for (int i = 0; i < cards.size(); i++) {
@@ -79,5 +83,27 @@ public class Player {
         }
 
         return indexes;
+    }
+
+    public List<CardColor> getColors() {
+        ArrayList<CardColor> cardColors = new ArrayList<>();
+
+        for (Card card : cards) {
+            if (!cardColors.contains(card.getColor()))
+                cardColors.add(card.getColor());
+        }
+
+        return cardColors;
+    }
+
+    public List<Integer> getValues() {
+        ArrayList<Integer> values = new ArrayList<>();
+
+        for (Card card : cards) {
+            if (!values.contains(card.getValue()))
+                values.add(card.getValue());
+        }
+
+        return values;
     }
 }

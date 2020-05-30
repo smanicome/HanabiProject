@@ -22,7 +22,14 @@ public class View {
     }
 
     public static void displayHand(Player p) {
-        System.out.println(Objects.requireNonNull(p));
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < p.getHandSize(); i++) {
+            builder.append(i);
+            builder.append(" ");
+        }
+
+        System.out.println(builder);
     }
 
     public static void displayReserve(Reserve r) {
@@ -62,6 +69,12 @@ public class View {
         displayTips(p.getIndexOfCardsByCardColor(cardColor), builder);
     }
 
+    public static void displayValueOrColor() {
+        System.out.println("Choose to indicate either value or color : ");
+        System.out.println("1) Value");
+        System.out.println("2) Color");
+    }
+
     public static void displayTips(int value, Player p) {
         if (value < 1 || value > 5) {
             throw new IllegalArgumentException("Value must be between 1 and 5 included");
@@ -89,6 +102,65 @@ public class View {
                 "Last discarded card : "
                 + c.toString()
             );
+        }
+    }
+
+    public static void displayCardColors() {
+        StringBuilder builder = new StringBuilder();
+        CardColor[] cardColors = CardColor.values();
+
+        for (int i = 1; i <= cardColors.length; i++) {
+            builder.append(i);
+            builder.append(") ");
+            builder.append(cardColors[i].toString());
+            builder.append('\n');
+        }
+        System.out.println(builder.toString());
+    }
+
+    public static void displayPlayers(List<Player> players, int playerIndex) {
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < players.size(); i++) {
+            if(i == playerIndex) continue;
+
+            builder.append(i);
+            builder.append(") ");
+            builder.append(players.get(i).toString());
+            builder.append('\n');
+        }
+
+        System.out.println(builder.toString());
+    }
+
+    public static void displayIndexError(int min, int max, List<Integer> exceptions) {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("Min: ");
+        builder.append(min);
+        builder.append("\nMax: ");
+        builder.append(max);
+        builder.append("\nexceptions: ");
+
+        for (Integer expt : exceptions) {
+            builder.append(expt);
+            builder.append(" ");
+        }
+
+        System.out.println(builder.toString());
+    }
+
+    public static void displayValues(List<Integer> values) {
+        System.out.println("Your chosen partner has the following: ");
+        for (int i = 1; i <= values.size(); i++) {
+            System.out.println(values.get(i).toString());
+        }
+    }
+
+    public static void displayColors(List<CardColor> cardColors) {
+        System.out.println("Your chosen partner has the following: ");
+        for (int i = 1; i <= cardColors.size(); i++) {
+            System.out.println(cardColors.get(i).toString());
         }
     }
 }
