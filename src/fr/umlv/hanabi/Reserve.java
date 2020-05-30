@@ -60,7 +60,7 @@ public class Reserve {
 	 */
 	public Card draw(){
 		try{
-			Card card = deck.remove(deck.size() -1);
+			Card card = deck.remove(0);
 		catch(Exception e){
 			throw new IllegalStateException();
 		}
@@ -74,12 +74,8 @@ public class Reserve {
 	 */
 	public ArrayList<Card> draw(int n){
 		ArrayList<Card> cards;
-		try{
-			for(int i = 0; i < n; i++)
-				cards.add(deck.remove());
-		catch(Exception e){
-			throw new IllegalStateException();
-		}
+		for(int i = 0; i < n; i++)
+				cards.add(draw());
 		return cards;
 	}	
 }
