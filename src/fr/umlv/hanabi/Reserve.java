@@ -59,12 +59,11 @@ public class Reserve {
 	 * @throws IllegalStateException if deck is emptied
 	 */
 	public Card draw(){
-		try{
-			Card card = deck.remove(0);
-		catch(Exception e){
+		try {
+			return deck.remove(0);
+		} catch(Exception e){
 			throw new IllegalStateException();
 		}
-		return card;
 	}
 
 	/**
@@ -73,7 +72,7 @@ public class Reserve {
 	 * @throws IllegalStateException if deck is emptied
 	 */
 	public ArrayList<Card> draw(int n){
-		ArrayList<Card> cards;
+		ArrayList<Card> cards = new ArrayList<>();
 		for(int i = 0; i < n; i++)
 				cards.add(draw());
 		return cards;
