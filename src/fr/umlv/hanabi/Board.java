@@ -70,4 +70,11 @@ public class Board {
 
         return score;
     }
+
+    public boolean isFilled() {
+        for (List<Card> fwk : fireworks.values())
+            if (fwk.size() < 5) return false;
+
+        return true;
+    }
 }
