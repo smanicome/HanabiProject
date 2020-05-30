@@ -81,7 +81,7 @@ public class View {
     }
 
     public static void displayDiscarded(Game g) {
-        Card c = g.getDiscarded();
+        Card c = Objects.requireNonNull(g).getDiscarded();
         if (c == null) {
             System.out.println("No discarded card");
         } else {
