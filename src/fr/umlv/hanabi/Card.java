@@ -4,8 +4,8 @@ package fr.umlv.hanabi;
  - Model of a card, composed of a color and a value
  */
 public class Card {
-	int value;
-	CardColor color;
+	private final int value;
+	private final CardColor color;
 
 	public Card(int val, CardColor color){
 		this.value = val;
@@ -14,11 +14,11 @@ public class Card {
 			throw new IllegalArgumentException();
 	}
 
-	int getValue(){
+	public int getValue(){
 		return value;
 	}
 
-	CardColor getColor(){
+	public CardColor getColor(){
 		return color;
 	}
 
