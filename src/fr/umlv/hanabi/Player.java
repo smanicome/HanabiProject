@@ -104,6 +104,7 @@ public class Player {
                 values.add(card.getValue());
         }
 
+        values.sort((a, b) -> a < b ? 1 : 0);
         return values;
     }
 }

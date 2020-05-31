@@ -10,6 +10,7 @@ public class Game {
 	private final Board board;
 	private final List<Player> players;
 	private Card lastDiscard;
+	private boolean lastTurn = false;
 
 	public Game(){
 		this.reserve = new Reserve();
@@ -19,18 +20,21 @@ public class Game {
 		this.players = List.of(p1, p2);
 	}
 
-	private int selection(Scanner in, int min, int max, Integer... excepts){
+	private int selection(Scanner in, int min, int max) {
+		return selection(in, min, max, List.of());
+	}
+
+	private int selection(Scanner in, int min, int max, List<Integer> excepts){
 		boolean correctInput = false;
-		List<Integer> exceptions = List.of(excepts);
 		int value = -1;
 
 		do{
 			try{
 				value = in.nextInt();
-				correctInput = !exceptions.contains(value) && value >= min && value <= max;
+				correctInput = !excepts.contains(value) && value >= min && value <= max;
 
 				if (!correctInput) {
-					View.displayIndexError(min, max, exceptions);
+					View.displayIndexError(min, max, excepts);
 				}
 			}catch(Exception e){
 				View.displayText("Wrong input !\nEnter a number :");
@@ -51,22 +55,25 @@ public class Game {
 		if(players.size() > 2){
 			View.displayText("Select a player :");
 			View.displayPlayers(players, playerIndex);
-			targetPlayer = selection(in, 0, players.size() - 1, playerIndex);
+			targetPlayer = selection(in, 0, players.size() - 1, List.of(playerIndex));
 		} else {
 			targetPlayer = (0 == playerIndex ? 1 : 0);
 		}
 		
 		View.displayValueOrColor();
 		View.displayText("Choose which: ");
+		int index;
 
 		switch (selection(in, 1, 2)) {
 			case 1:
-				View.displayValues(players.get(targetPlayer).getValues());
-				View.displayTips(selection(in, 1, 5), players.get(playerIndex));
+				View.displayOptions(players.get(targetPlayer).getValues());
+				index = selection(in, 1, 5);
+				View.displayTips(index, players.get(playerIndex));
 				break;
 			case 2:
-				View.displayColors(players.get(targetPlayer).getColors());
-				View.displayTips(selection(in, 1, CardColor.values().length), players.get(playerIndex));
+				View.displayOptions(players.get(targetPlayer).getColors());
+				index = selection(in, 1, CardColor.values().length);
+				View.displayTips(players.get(targetPlayer).getColors().get(index - 1), players.get(targetPlayer));
 		}
 	}
 
@@ -130,15 +137,18 @@ public class Game {
 		boolean correctInput;
 		do{
 			View.displayChoice(reserve);
-			input = in.nextInt();
+			input = selection(in, 1, 3);
 			correctInput = true;
 			switch(input){ /* mettre input = in.nextLine() directement ici ?*/
 				case 1:
-					play(p, in);break;
+					lastTurn = play(p, in);
+					break;
 				case 2:
-					tipsChoice(players.indexOf(p), in);break;
+					tipsChoice(players.indexOf(p), in);
+					break;
 				case 3:
-					discard(p, in);break;
+					lastTurn = discard(p, in);
+					break;
 				default:
 					correctInput = false;
 					View.displayText("Wrong input");
@@ -151,12 +161,23 @@ public class Game {
 	 */
 	public int gameLoop(){
 		Scanner in = new Scanner(System.in);
+		int remaining = players.size();
+
 		while(!board.isFilled()){
 			for(Player p : players){
 				playerChoice(p, in);
+
+				if (lastTurn) remaining--;
+				if (reserve.getRedTokens() == 3 || remaining == 0) {
+					return endGame();
+				}
 			}
 		}
 
+		return endGame();
+	}
+
+	private int endGame() {
 		View.displayText("Score: " + board.getScore());
 		return board.getScore();
 	}

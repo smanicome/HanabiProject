@@ -109,8 +109,8 @@ public class View {
         StringBuilder builder = new StringBuilder();
         CardColor[] cardColors = CardColor.values();
 
-        for (int i = 1; i <= cardColors.length; i++) {
-            builder.append(i);
+        for (int i = 0; i < cardColors.length; i++) {
+            builder.append(i + 1);
             builder.append(") ");
             builder.append(cardColors[i].toString());
             builder.append('\n');
@@ -150,17 +150,12 @@ public class View {
         System.out.println(builder.toString());
     }
 
-    public static void displayValues(List<Integer> values) {
+    public static void displayOptions(List values) {
         System.out.println("Your chosen partner has the following: ");
-        for (int i = 1; i <= values.size(); i++) {
+        for (int i = 0; i < values.size(); i++) {
+            System.out.print(i + 1);
+            System.out.print(") ");
             System.out.println(values.get(i).toString());
-        }
-    }
-
-    public static void displayColors(List<CardColor> cardColors) {
-        System.out.println("Your chosen partner has the following: ");
-        for (int i = 1; i <= cardColors.size(); i++) {
-            System.out.println(cardColors.get(i).toString());
         }
     }
 }
