@@ -18,6 +18,7 @@ public class View {
     }
 
     public static void displayBoard(Board b) {
+        View.displayText("Current board state :");
         System.out.println(Objects.requireNonNull(b).toString());
     }
 
@@ -83,7 +84,7 @@ public class View {
 
         StringBuilder builder = new StringBuilder();
 
-        builder.append("Cards with value ");
+        builder.append("Index of cards with value ");
         builder.append(value);
 
         displayTips(p.getIndexOfCardsByValue(value), builder);
@@ -151,7 +152,7 @@ public class View {
     }
 
     public static void displayOptions(List values) {
-        System.out.println("Your chosen partner has the following: ");
+        System.out.println("Your chosen partner has the following card values: ");
         for (int i = 0; i < values.size(); i++) {
             System.out.print(i + 1);
             System.out.print(") ");

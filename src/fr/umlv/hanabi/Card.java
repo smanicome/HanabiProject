@@ -24,6 +24,8 @@ public class Card {
 
 	@Override
 	public String toString(){
-		return color.toString() + Integer.toString(value);
+		StringBuilder builder = new StringBuilder();
+		builder.append(color.toString()).append(" ").append(Integer.toString(value));
+		return builder.toString();
 	}
 }
